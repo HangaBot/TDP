@@ -1,0 +1,15 @@
+CM Free Space 1000 MHz square loop
+CE
+SY c=1.1
+SY a=0.0495*c	
+SY b=0.1003*c
+GW	1	9	-a/2	-b/2	0	-a/2	b/2	0	.00088
+GW	2	9	-a/2	b/2	0	a/2	b/2	0	.00088
+GW	3	9	a/2	b/2	0	a/2	-b/2	0	.00088
+GW	4	9	a/2	-b/2	0	-a/2	-b/2	0	.00088
+GE	0
+GN	-1
+EK
+EX	0	4	5	0	1	0	0
+FR	0	50	0	0	800	10
+EN
