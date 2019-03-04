@@ -15,7 +15,97 @@
 
 \chapter{Componenti passivi}
 \section{Induttori}
+\subsection{Induttori con filo Avvolto}
+Per dimensionare gli induttori a singolo strato in aria esiste la formula di Wheeler:
+
+\begin{equation}
+L = 10^{-3} \frac{N^2   D^2}{45 D + 100 l}
+\end{equation}
+dove $L$ è in $\mu H$, $N$ è il numero di avvolgimenti, $D$ è il diametro in mm,  $l$ è la lunghezza in mm
+
+\begin{center}
+\includegraphics[scale=1]{img/risonatori/bobina_singolo_strato.png} 
+\label{FIG:Bobina_singolo_strato}
+\end{center}
+
+Anche per gli induttori in aria a più strati esiste una formula simile 
+\begin{equation}
+L = 10^{-3} \frac{7.9 N^2   D^2}{3 D + 9 l+10 b}
+\end{equation}
+dove in questo caso $b$ è lo spessore degli avvolgimenti.
+\begin{center}
+\includegraphics[scale=1]{img/risonatori/bobina_multi_strato.png} 
+\label{FIG:Bobina_multi_strato}
+\end{center}
 \section{Induttori accoppiati}
+In base alla legge di Lenz una variazione di corrente in un conduttore produce una tensione all'interno del conduttore stesso proporzionale all'auto induttanza e nei conduttori circostanti secondo dei coefficienti dei mutua induttanza che dipendono dall'accoppiamento tra i due circuiti. In figura è mostrato il simbolo di due circuiti accoppiati
+\begin{center}
+\includegraphics[scale=1]{img/risonatori/circuiti_accoppiati.png} 
+\label{FIG:Circuiti_accoppiati}
+\end{center}
+
+Il pallino indica il verso positivo della corrente e della tensione.
+Le relazioni che legano tensioni e correnti sono:
+\begin{eqnarray}
+v_1 = L_1 \frac{d i_1}{dt} + M \frac{d i_2}{dt} \\
+v_2 = M \frac{d i_1}{dt} + L_2 \frac{d i_2}{dt} 
+\end{eqnarray}
+
+Il valore di $M$ deve rispettare la seguente condizione 
+\begin{equation}
+M \leqslant \sqrt{L1 L2}
+\end{equation}
+
+si definisce fattore di accoppiamento 
+$$
+k = \frac{M}{sqrt(L1 L2)}
+$$
+
+Nel dominio dei fasori si scrive
+
+\begin{eqnarray}
+V_1 = j \omega L_1 I_1 + j \omega M I_2 \\
+V_2 = j \omega M   I_1 + j \omega L_2 I_2 
+\end{eqnarray}
+
+\subsection{Trasformatori di impedenza}
+Consideriamo un trasformatore chiuso su un'impedenza $Z_L$. Si possono scrivere le seguenti equazioni
+\begin{equation}
+\frac{V2}{I2}= -Z_L
+\end{equation}
+dalla seconda equazione del circuito accoppiato si ha
+\begin{eqnarray}
+V_2 = j \omega M   I_1 - j \omega L_2 \frac{V_2}{Z_L}
+\end{eqnarray}
+e quindi 
+\begin{equation}
+V_2  = \frac{Z_L j \omega M}{Z_L + j \omega L_2}I_1
+\end{equation}
+dalla prima equazione del circuito accoppiato
+\begin{equation}
+V_1 = j \omega L_1 I_1 -  j \omega M \frac{V_2}{Z_L} \\
+\end{equation}
+per cui sostituendo nella prima
+\begin{equation}
+V_1 = j \omega L_1 I_1   + \frac{ \omega^2 M ^2}{Z_L + j \omega L_2 }I_1 \\
+\end{equation}
+
+da cui si ottiene che 
+\begin{equation}
+Z_{in} = \frac{V_1}{I_1} = \frac{j \omega L_1  Z_L -\omega^2 L1 L2  +    \omega^2 M ^2}{Z_L + j \omega L_2} 
+\end{equation}
+
+Nel caso in cui l'accoppiamento è perfetto si ha che 
+$M^2 = L1 L2 $
+e quindi si ottiene 
+\begin{equation}
+Z_{in}  = \frac{j \omega L_1  Z_L}{Z_L + j \omega L_2}
+\end{equation}
+Se poi si può considerare $|\omega L2|>> |Z_L|$ allora si ottiene
+\begin{equation}
+Z_{in}  = \frac{L_1 }{L_2} Z_L
+\end{equation}
+
 \section{Condensatori}
 
 
@@ -40,7 +130,7 @@ La banda del risonatore a metà potenza è
 \begin{equation}
 BW  = \frac{1}{Q}
 \end{equation}
-In questa topologia per ottenere dei valori di Q elevato è necessario avere dei condesatori di capacità elevata e induttanza molto piccole. Per valori di frequenza dell' ordine dei megaHerz le induttanza risultano essere troppo piccole da essere realizzate in modo controllato. 
+In questa topologia per ottenere dei valori di Q elevato è necessario avere dei condesatori di capacità elevata e induttanza molto piccole. Per valori di frequenza dell'ordine dei MHz le induttanza risultano essere troppo piccole da essere realizzate in modo controllato. 
 \subsection{Risonatori RLC serie}
 Nei risonatori RLC in configurazione parallelo l 'induttanza e la capacità sono collegate in parallelo.
 La frequenza di risonanza è pari a
@@ -57,11 +147,31 @@ La banda del risonatore a metà potenza è
 BW  = \frac{1}{Q}
 \end{equation}
 
+\section{Risonatori ad una porta RLC}
+Questo risonatore riflette tutta l'energia in ingresso ad una singola frequenza. Esistono diverse topologie: 
+\begin{itemize}
+\item LC serie con carico in parallelo
+\item LC parallelo con carico in serie
+\end{itemize}
+
+A seconda della frequenza è più conveniente utilizzare la prima o la seconda topologia.
+La prima topologia è mostrata in figura \ref{FIG:RISONATORI_1_PORTA_LC_SERIE}.
+\begin{center}
+\includegraphics[scale=0.5]{img/risonatori/risonatore_1_port_serie.png} 
+\label{FIG:RISONATORI_1_PORTA_LC_SERIE}
+\end{center}
+Il risonatore è accordato alla frequenza di circa 19.6 MHz.
+
+
 \section{Risonatori con induttori accoppiati}
 \section{Risonatori con linee di trasmissione}
 
 
 \chapter{Analisi Spettrale di un Segnale  Campionato}
+\section{filter bank}
+I'm using Filter Banks (Narrow Band Pass) created using the functions in Matlab. However, I wanted to know if there are fundamental limitations like that of FFT which also affect the Filter Banks. Is there any co-relation between the two?
+
+
 \section{Introduzione}
 Supponiamo di avere un segnale $x(t)$  campionato con frequenza di campionamento $T_c$. Il numero di campioni prelevati è pari a $N$. Assumiamo, inoltre, che il segnale $x(t)$ rappresenti una tensione elettrica prelevata ai capi di una impedenza a $Z_0 = 50\Omega$ cosi da poter definire delle grandezze dimensionali. Assumiamo il segnale $x(t)$ a banda stretta e che non sia presente aliasing dello spettro.
 \section{Definizioni}
@@ -168,6 +278,63 @@ quindi effettuando la media statistica su un numero elevato di misure finestrate
 
 
 \chapter{Antenne}
+\section{Array di antenne}
+In alcuni sistemi di antenne si ha la necessità di generare fasci con elevata direttività, come ad esempio nei sistemi punto-punto, o nei trasmettitori radar.
+In questi casi si utilizzano array di antenne che si ottengono sistemando parecchi elementi radianti elementari per ottenere un elevato guadagno. Si ottengono facilmente guadagni di 10dB che permettono di ridurre la potenza trasmessa analogamente di 10dB. Consideriamo un insieme di $N$ antenne posizionate ed orientate in modo arbitrario come mostrato nella figura \ref{FIG:ANTENNA_ARRAY}
+
+\begin{center}
+\includegraphics[scale=1]{img/Antenne/Antenna_array.png} 
+\label{FIG:ANTENNA_ARRAY}
+\end{center}
+Il campo calcolato in un punto $\underline{r}$ dello spazio dovuto all'antenna n-esima si scrive come
+\begin{equation}
+\underline{E}_n = I_n \underline{F}_n(\theta,\phi) \frac{\exp\left(-j k \left|\underline{r} - \underline{\rho}_n\right| \right)}{\left|\underline{r} - \underline{\rho}_n\right|}
+\end{equation}
+dove $I_n$ è la corrente di alimentazione dell'antenna
+$\underline{F}_n(\theta,\phi)$ è il fattore di elemento.
+Il campo complessivo si scrive applicando il principio di sovrapposizione degli ingressi
+\begin{equation}
+\underline{E} = \sum_{n = 1}^N I_n \underline{F}_n(\theta,\phi) \frac{\exp\left(-j k \left|\underline{r} - \underline{\rho}_n\right| \right)}{\left|\underline{r} - \underline{\rho}_n\right|}
+\end{equation}
+Noi siamo interessati a calcolare il campo in un punto che si trova lontano da tutto il sistema di antenne ovvero 
+\begin{eqnarray}
+r >> \lambda \\
+r >> D\\
+r >> \frac{2 D^2}{\lambda}
+\end{eqnarray}
+dove $D$ è il diametro della sfera più piccola che contiee tutto il sistema di antenne. 
+In zona lontana per la fase vale la seguente approssimazione
+\begin{equation}
+\left|\underline{r} - \underline{\rho}_n\right| =\left|\underline{r}\right| -  \underline{\rho}_n \cdot \underline{i}_r
+\end{equation}
+per l'ampiezza invece 
+\begin{equation}
+\left|\underline{r} - \underline{\rho}_n\right| =\left|\underline{r}\right|
+\end{equation}
+e quindi il campo in zona lontana si scrive 
+\begin{equation}
+\underline{E} = \sum_{n = 1}^N I_n \underline{F}_n(\theta,\phi) \exp\left(j k \underline{\rho}_n \cdot \underline{i}_r \right)\frac{\exp\left(-j k r\right)}{r}
+\end{equation}
+assumendo che il fattore di elemento sia uguale per tutte le antenne si ottiene 
+\begin{equation}
+\underline{E} = \underline{F}(\theta,\phi) \sum_{n = 1}^N I_n  \exp\left(j k \underline{\rho}_n \cdot \underline{i}_r \right)\frac{\exp\left(-j k r\right)}{r}
+\end{equation}
+si ottiene il principio di sovrapposizione del diagramma
+In genere le antenne che costituiscono un array sono tutte uguali e ugualmente orientate, quindi a parità di alimentazione hanno lo stesso diagramma di radiazione. Questo è vero solo se si considerano le antenne isolate e irradianti nello spazio libero, altrimenti intervengono fenomeni di interazione mutua: la corrente su un'antenna irradia un campo elettromagnetico che in corrispondenza di un'altra antenna altera la distribuzione di corrente presente su di essa, modificandone il diagramma di radiazione. L'entità di questa perturbazione dipende da quanto sono distanti le antenne e dalle ampiezze delle correnti. 
+\subsection{Analisi della forma del fattore di array}
+La forma del fattore di array determina il diagramma di radiazione dell'antenna. Si vede che il fattore di array ha come parametri le correnti di alimentazione e le posizioni dell'antenna. Il massimo assoluto del fattore di array si ha quando nella direzione in cui la fase di tutti i termini della sommatoria è uguale. Quindi sfasando opportunamente le correnti applicate ai singoli elementi è possibile orientare il fascio nella direzione desiderata.
+
+Infatti scegliendo
+\begin{equation}
+I_n = I_0 exp\left(- j k  \underline{\rho}_n \cdot \underline{i}_d \right)
+\end{equation}
+ 
+si ottiene 
+\begin{equation}
+F = \sum_{n = 1}^N  I_0 exp\left(- j k  \underline{\rho}_n \cdot \underline{i}_d \right)  \exp\left(j k \underline{\rho}_n \cdot \underline{i}_r \right)
+\end{equation}
+e quindi nella direzione $\underline{i}_d$  si ottiene il massimo. Naturalmente la forma del fascio dipende da anche dalla posizione degli elementi
+
 \section{Simulazione di antenne 4NEC2}
 In 4NEC2 le antenne e le strutture sono sempre modellizzate con attraverso wire conduttori. Ogni wire è identificato da un unico tag. Durante la simulazione i wire vengono ulteriormente suddivisi dal software stesso. Quando si costruisce un modello la dimensione tipica dovrebbe essere di circa $\lambda/20$. Si possono usare segmenti di dimensione diversa per aumentare la velocità di simulazione. Occorre comunque mettere segmenti di dimensione inferiore nelle aree critiche. Per una corretta simulazione la lunghezza del segmento dovrebbe essere almeno quattro volte il diametro del conduttore.
 \section{Modellizzazione di strutture solide}
@@ -187,7 +354,7 @@ In nec sono disponibili delle sorgenti di tensione ideali. I generatori di tensi
 \lstinputlisting{labs/Antenne/4nec2/square_loop.nec}
 
 \section{Loop antenna}
-\section{Introduzione}
+\subsection{Introduzione}
 Le antenne a loop consistono in avvolgimenti di varia forma alimentati in un punto detto gap.  In base alla loro dimensione rispetto alla lunghezza d'onda si differenziano i due tipologie
 
 \begin{itemize}
@@ -199,13 +366,13 @@ Le antenne full wave ha il massimo di radiazione nella direzione ortogonale al p
 
 Sono tipicamente antenne a banda stretta con una banda tipicamente inferiore al dipolo a $\lambda/2$
 
-\section{Loop Antenne FullWave}
+\subsection{Loop Antenne FullWave}
 Esistono diverse forme di antenna come mostrate in figura. Tipicamente La lunghezza dell'avvolgimento è pari alla lunghezza d'onda alla frequenza di funzionamento.
 \begin{center}
 \includegraphics[scale=1]{img/Antenne/Loop_and_quad.png} 
 \end{center}
 
-\subsection{Esempio: antenna rettangolare con impedenza a 50 Ohm per la banda di 1 GHz}
+\subsubsection{Esempio: antenna rettangolare con impedenza a 50 Ohm per la banda di 1 GHz}
 La lunghezza d'onda è pari a $\lambda = 0.29979246 m$. Risolvendo il sistema
 \begin{eqnarray}
 2 b + 2 a = \lambda \\
@@ -227,7 +394,15 @@ dalla simulazione si trova che l'antenna risulta
 \end{center}
 
 Si nota che per accordare l'antenna ad 1GHz è stato previsto un fattore di scala $c$ che la rende leggermente più lunga
+\section{Dielectric resonator antenna DRA}
+Le DRA (dielectric resonator antenna) sono antenne che usano la risonanza interna ad un dielettrico per trasformare le onde guidate in onde non guidate. In generale sono realizzate da materiali con alta costante dielettrica come il PVC (PolyVinyl Chloride).
+Le DRA hanno le seguenti caratteristiche:
 
+\begin{itemize}
+\item La dimensione di una DRA è proporzionale a $\lambda_0/ \sqrt(\epsilon_r)$ dove $\lambda_0 = c / f_0$. Siccome non è presente materiale conduttivo
+\item hanno una elevata efficienza se si usa dielettrico con basse perdite
+\item raggiungono bande di funzionamento elevate
+\end{itemize}
 
 \chapter{Gestione di Progetto}
 \section{Gestione dei Requisiti}
@@ -243,6 +418,7 @@ I requisiti si possono classificare nelle seguenti categorie
 
 \subsection{Analisi dei requisiti e matrice dei requisiti}
 L'analisi dei requisiti  consiste nel generare un insieme di procedure di verifica automatiche o manuali che permettono di verificare se un determinato requisito è soddisfatto o meno. 
+
 
 \subsection{matrice di Tracciabilità}
 La matrice di tracciabilità permette di conoscere se un determinata procedura di test valuta un determinato requisito e se eseguendo la procedura si soddisfa il requisito. Naturalmente una procedura di test può andare a valutare differenti requisiti.
